@@ -18,22 +18,32 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
+    //@Autowired
+    // final UsuarioRepository usuarioRepository;
+
     @PostMapping
     public void insert(@RequestBody Usuario usuario){
-        
+        log.info(usuario.toString());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable("id") String id){
+    public ResponseEntity<Usuario> getById(@PathVariable("id") Long id){
         Usuario usuario = new Usuario();
         usuario.setId(id);
         return ResponseEntity.ok(usuario);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Usuario>> getAll(@PathVariable("id") String id){
+    @GetMapping(value = {
+        "/",
+        "/{id}"
+    })
+    public ResponseEntity<List<Usuario>> getAll(@PathVariable(value = "id", required = false) Long id){
         Usuario usuario = new Usuario();
-        usuario.setId(id);
+        if(id == 123L){
+            usuario.setId(123L);
+            return ResponseEntity.ok(List.of(usuario));
+        }
+        usuario.setId(123245L);
         return ResponseEntity.ok(List.of(usuario));
     }
 }
