@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+// import javax.persistence.Entity;
+// import javax.persistence.Id;
+// import javax.persistence.OneToOne;
 
 
 @Getter
@@ -15,13 +15,13 @@ import javax.persistence.OneToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity
+// @Entity
 public class Usuario {
-    @Id
+    // @Id
     private Long id;
     private String nome;
     private String email;
     private String senha;
-    @OneToOne
+    // @OneToOne
     private Endereco endereco;
 }
