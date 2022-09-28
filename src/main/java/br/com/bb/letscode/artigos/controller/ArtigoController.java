@@ -13,13 +13,7 @@ import br.com.bb.letscode.artigos.repository.ArtigoRepository;
 import br.com.bb.letscode.artigos.entity.Artigo;;
 
 public class ArtigoController {
-    //GetById
-    //GetAllByUser
-    //CreateArticle
-    //DeleteArticle
-    //GetAll
-    //UpvoteArticle
-    //DownvoteArticle
+    
     @Autowired
     final ArtigoRepository artigoRepository;
 

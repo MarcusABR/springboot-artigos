@@ -14,8 +14,7 @@ import br.com.bb.letscode.artigos.entity.Usuario;
 import br.com.bb.letscode.artigos.repository.CampoRepository;
 
 public class CampoController {
-    //CRUD
-    //GetAll
+    
     @Autowired
     final CampoRepository campoRepository;
 
