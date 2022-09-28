@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.entity.Usuario;
 import br.com.bb.letscode.artigos.repository.UsuarioRepository;
+import br.com.bb.letscode.artigos.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,16 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 public class UsuarioController {
 
     @Autowired
-    final UsuarioRepository usuarioRepository;
+    final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping
     public ResponseEntity<Usuario> insert(@RequestBody Usuario usuario){
         log.info(usuario.toString());
-        return ResponseEntity.ok(usuarioRepository.save(usuario));
+        return ResponseEntity.ok(usuarioService.save(usuario));
     }
 
     @GetMapping("/{id}")
@@ -45,6 +46,6 @@ public class UsuarioController {
         "/{id}"
     })
     public ResponseEntity<List<Usuario>> getAll(@PathVariable(value = "id", required = false) Long id){
-        return ResponseEntity.ok(usuarioRepository.findAll());
+        return ResponseEntity.ok(usuarioService.findAll());
     }
 }
