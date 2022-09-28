@@ -2,6 +2,7 @@ package br.com.bb.letscode.artigos.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.entity.Usuario;
+import br.com.bb.letscode.artigos.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,12 +20,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    //@Autowired
-    // final UsuarioRepository usuarioRepository;
+    @Autowired
+    final UsuarioRepository usuarioRepository;
+
+    public UsuarioController(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @PostMapping
-    public void insert(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> insert(@RequestBody Usuario usuario){
         log.info(usuario.toString());
+        return ResponseEntity.ok(usuarioRepository.save(usuario));
     }
 
     @GetMapping("/{id}")
@@ -38,12 +45,6 @@ public class UsuarioController {
         "/{id}"
     })
     public ResponseEntity<List<Usuario>> getAll(@PathVariable(value = "id", required = false) Long id){
-        Usuario usuario = new Usuario();
-        if(id == 123L){
-            usuario.setId(123L);
-            return ResponseEntity.ok(List.of(usuario));
-        }
-        usuario.setId(123245L);
-        return ResponseEntity.ok(List.of(usuario));
+        return ResponseEntity.ok(usuarioRepository.findAll());
     }
 }

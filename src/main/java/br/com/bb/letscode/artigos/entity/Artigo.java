@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Artigo{
     private String codigoArtigo;
-    private String nomeUsuario;
+    private String codigoUsuario;
     private String titulo;
     private String texto;
     private String lingua;
