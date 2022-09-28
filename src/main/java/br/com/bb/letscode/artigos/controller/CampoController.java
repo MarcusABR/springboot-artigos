@@ -10,36 +10,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.bb.letscode.artigos.entity.Campo;
-import br.com.bb.letscode.artigos.entity.Usuario;
-import br.com.bb.letscode.artigos.repository.CampoRepository;
+import br.com.bb.letscode.artigos.service.CampoService;
 
 public class CampoController {
     
     @Autowired
-    final CampoRepository campoRepository;
+    final CampoService campoService;
 
-    public CampoController(CampoRepository campoRepository) {
-        this.campoRepository = campoRepository;
+    public CampoController(CampoService campoService) {
+        this.campoService = campoService;
     }
 
     @PostMapping
     public ResponseEntity<Campo> insert(@RequestBody Campo campo){
-        log.info(campo.toString());
-        return ResponseEntity.ok(campoRepository.save(campo));
+        return ResponseEntity.ok(campoService.save(campo));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Campo> getById(@PathVariable("id") Long id){
-        Usuario usuario = new Usuario();
-        usuario.setId(id);
-        return ResponseEntity.ok(Campo);
+    public ResponseEntity<Campo> getById(@PathVariable("id") String nome){
+        return ResponseEntity.ok(campoService.getById(nome));
     }
 
-    @GetMapping(value = {
-        "/",
-        "/{id}"
-    })
+    @GetMapping("/{id}")
     public ResponseEntity<List<Campo>> getAll(@PathVariable(value = "id", required = false) Long id){
-        return ResponseEntity.ok(campoRepository.findAll());
+        return ResponseEntity.ok(campoService.findAll());
     }
 }
