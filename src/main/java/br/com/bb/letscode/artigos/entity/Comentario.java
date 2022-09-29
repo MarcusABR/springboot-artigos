@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.com.bb.letscode.artigos.entity.enums.TipoComentario;
 import lombok.AllArgsConstructor;
@@ -21,4 +22,7 @@ public class Comentario {
     private String codigoArtigo;
     @Enumerated(EnumType.STRING)
     private TipoComentario tipo;
+
+    @ManyToOne
+    private Artigo artigo;
 }
