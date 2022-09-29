@@ -2,7 +2,14 @@ package br.com.bb.letscode.artigos.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.entity.Comentario;
@@ -35,6 +43,7 @@ public class ComentarioController {
         return ResponseEntity.ok(comentarioService.save(comentario));
     }
 
+    @Cacheable("comentarios_user")
     @GetMapping("/usuario/{id}")
     public ResponseEntity<List<Comentario>> getByUserId(@PathVariable("id") Long userId){
         return ResponseEntity.ok(comentarioService.findByUserId(userId));
@@ -48,9 +57,11 @@ public class ComentarioController {
         return ResponseEntity.ok(comentarioService.findByArticle(articleId, userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Comentario>> getAll(@PathVariable(value = "id", required = false) Long id){
-        return ResponseEntity.ok(comentarioService.findAll());
+    @Cacheable("comentarios")
+    @GetMapping
+    public ResponseEntity<Page<Comentario>> getAll(@RequestParam(value = "filter", required = false) String filter, @ParameterObject 
+                                                                            @PageableDefault(size = 20, page = 0) Pageable pageable){
+        return ResponseEntity.ok(comentarioService.findAll(filter, pageable));
     }
 
     @DeleteMapping
