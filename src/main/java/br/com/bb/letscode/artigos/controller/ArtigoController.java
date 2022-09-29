@@ -10,11 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.repository.ArtigoRepository;
 import br.com.bb.letscode.artigos.service.ArtigoService;
+import lombok.extern.slf4j.Slf4j;
 import br.com.bb.letscode.artigos.entity.Artigo;;
 
+@Slf4j
+@RestController
+@RequestMapping("/artigos")
 public class ArtigoController {
     
     @Autowired
