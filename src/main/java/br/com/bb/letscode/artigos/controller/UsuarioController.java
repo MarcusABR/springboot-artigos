@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.entity.Usuario;
-import br.com.bb.letscode.artigos.repository.UsuarioRepository;
 import br.com.bb.letscode.artigos.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,11 +40,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @GetMapping(value = {
-        "/",
-        "/{id}"
-    })
-    public ResponseEntity<List<Usuario>> getAll(@PathVariable(value = "id", required = false) Long id){
+    @GetMapping
+    public ResponseEntity<List<Usuario>> getAll(){
         return ResponseEntity.ok(usuarioService.findAll());
     }
 }
