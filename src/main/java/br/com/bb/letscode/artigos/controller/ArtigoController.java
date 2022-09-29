@@ -2,7 +2,10 @@ package br.com.bb.letscode.artigos.controller;
 
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +33,14 @@ public class ArtigoController {
         this.artigoService = artigoService;
     }
 
+    @CachePut(value = "artigo_by_id", key = "#artigo.id")
     @PostMapping
     public ResponseEntity<Artigo> insert(@RequestBody Artigo artigo){
         return ResponseEntity.ok(artigoService.save(artigo));
     }
 
+    //Cacheable
+    @Cacheable(cacheNames = "artigo_by_id", key = "#id")
     @GetMapping("/{id}")
     public ResponseEntity<Artigo> getById(@PathVariable("id") Long id){
        
