@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -26,6 +29,10 @@ public class Usuario {
     private String email;
     private String senha;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "en0dereco_id", referencedColumnName = "id")
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    // @JoinColumn(name="usuario_id")
+    private List<Artigo> artigos;
 }
