@@ -4,35 +4,61 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bb.letscode.artigos.entity.Campo;
-import br.com.bb.letscode.artigos.service.CampoService;
+import br.com.bb.letscode.artigos.repository.ArtigoRepository;
+import br.com.bb.letscode.artigos.service.ArtigoService;
+import lombok.extern.slf4j.Slf4j;
+import br.com.bb.letscode.artigos.entity.Artigo;;
 
-public class CampoController {
+@Slf4j
+@RestController
+@RequestMapping("/artigos")
+public class ArtigoController {
     
     @Autowired
-    final CampoService campoService;
+    final ArtigoService artigoService;
 
-    public CampoController(CampoService campoService) {
-        this.campoService = campoService;
+    public ArtigoController(ArtigoService artigoService) {
+        this.artigoService = artigoService;
     }
 
     @PostMapping
-    public ResponseEntity<Campo> insert(@RequestBody Campo campo){
-        return ResponseEntity.ok(campoService.save(campo));
+    public ResponseEntity<Artigo> insert(@RequestBody Artigo artigo){
+        return ResponseEntity.ok(artigoService.save(artigo));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Campo> getById(@PathVariable("id") String nome){
-        return ResponseEntity.ok(campoService.getById(nome));
+    public ResponseEntity<Artigo> getById(@PathVariable("id") Long id){
+       
+        return ResponseEntity.ok(artigoService.getById(id));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Campo>> getAll(@PathVariable(value = "id", required = false) Long id){
-        return ResponseEntity.ok(campoService.findAll());
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Artigo>> findByUserId(@PathVariable(value = "id") Long Userid){
+        return ResponseEntity.ok(artigoService.findByUserId(Userid));
     }
+
+    @PutMapping("/upvote/{id}")
+    public void upvoteArticle(@PathVariable(value = "id") Long id){
+        artigoService.upvoteArticle(id);
+    }
+
+    @PutMapping("/downvote/{id}")
+    public void downvoteArticle(@PathVariable(value = "id") Long id){
+        artigoService.dowvoteArticle(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable(value = "id") Long id){
+        artigoService.delete(id);
+    }
+
 }
