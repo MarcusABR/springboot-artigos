@@ -18,6 +18,7 @@ public class ArtigoServiceImpl implements ArtigoService{
     }
 
     @Override
+    @Transactional
     public Artigo save(Artigo artigo) {
         return artigoRepository.save(artigo);
     }
