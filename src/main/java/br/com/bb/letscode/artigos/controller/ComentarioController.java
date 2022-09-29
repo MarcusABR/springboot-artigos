@@ -9,11 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bb.letscode.artigos.entity.Comentario;
 import br.com.bb.letscode.artigos.entity.Usuario;
 import br.com.bb.letscode.artigos.service.ComentarioService;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
+@RestController
+@RequestMapping("/comentarios")
 public class ComentarioController {
     
     @Autowired
@@ -28,14 +35,17 @@ public class ComentarioController {
         return ResponseEntity.ok(comentarioService.save(comentario));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getByUserId(@PathVariable("id") Long userd){
-        return null;
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Comentario>> getByUserId(@PathVariable("id") Long userId){
+        return ResponseEntity.ok(comentarioService.findByUserId(userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getByArticle(@PathVariable("id") Long articleId, @PathVariable(value = "user", required = false) Long id){
-        return null;
+    @GetMapping(value = {
+        "/artigo/{id}/{user}",
+        "/artigo/{id}"
+    })
+    public ResponseEntity<List<Comentario>> getByArticle(@PathVariable("id") Long articleId, @PathVariable(value = "user", required = false) Long userId){
+        return ResponseEntity.ok(comentarioService.findByArticle(articleId, userId));
     }
 
     @GetMapping("/{id}")
@@ -48,18 +58,4 @@ public class ComentarioController {
         comentarioService.delete(id);
     }
 
-    // @GetMapping(value = {
-    //     "/",
-    //     "/{id}"
-    // })
-    // public ResponseEntity<List<Usuario>> getAll(@PathVariable(value = "id", required = false) Long id){
-    //     return ResponseEntity.ok(usuarioRepository.findAll());
-    // }
-
-
-    // List<Comentario> findByArticle(Long articleId);
-
-    // List<Comentario> findByArticle(Long articleId, Long usuarioId);
-
-    // List<Comentario> findByUserId(Long articleId);
 }
