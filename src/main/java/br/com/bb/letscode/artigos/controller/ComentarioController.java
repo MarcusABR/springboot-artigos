@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
-import org.springdoc.api.annotations.ParameterObject;
+// import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -59,7 +59,7 @@ public class ComentarioController {
 
     @Cacheable("comentarios")
     @GetMapping
-    public ResponseEntity<Page<Comentario>> getAll(@RequestParam(value = "filter", required = false) String filter, @ParameterObject 
+    public ResponseEntity<Page<Comentario>> getAll(@RequestParam(value = "filter", required = false) String filter, 
                                                                             @PageableDefault(size = 20, page = 0) Pageable pageable){
         return ResponseEntity.ok(comentarioService.findAll(filter, pageable));
     }
@@ -69,4 +69,5 @@ public class ComentarioController {
         comentarioService.delete(id);
     }
 
+    // @ParameterObject 
 }

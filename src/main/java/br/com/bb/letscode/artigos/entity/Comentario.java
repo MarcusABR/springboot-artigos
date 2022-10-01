@@ -6,7 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotNull;
 
 import br.com.bb.letscode.artigos.entity.enums.TipoComentario;
 import lombok.AllArgsConstructor;
@@ -21,9 +21,9 @@ import lombok.NoArgsConstructor;
 public class Comentario {
     @Id
     private Long id;
-    @NotNull(message = "É necessário escrever algo no comentário para publicá-lo!")
+    // @NotNull(message = "É necessário escrever algo no comentário para publicá-lo!")
     private String texto;
-    private String nomeUsuario;
+    private String nome;
     private String codigoArtigo;
     @Enumerated(EnumType.STRING)
     private TipoComentario tipo;

@@ -15,7 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,16 +23,15 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Artigo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull(message = "É necessário um título")
+    // @NotNull(message = "É necessário um título")
     private String titulo;
-    @NotNull(message = "É necessário um texti")
+    // @NotNull(message = "É necessário um texti")
     private String texto;
     private String lingua;
     private Integer upvote;

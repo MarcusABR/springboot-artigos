@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotNull;
 
 
 @Getter
@@ -26,11 +26,11 @@ import javax.validation.constraints.NotNull;
 public class Usuario {
     @Id
     private Long id;
-    @NotNull(message = "Insira um nome.")
+    // @NotNull(message = "Insira um nome.")
     private String nome;
-    @NotNull(message = "Insira um email.")
+    // @NotNull(message = "Insira um email.")
     private String email;
-    @NotNull(message = "Insira uma senha.")
+    // @NotNull(message = "Insira uma senha.")
     private String senha;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
