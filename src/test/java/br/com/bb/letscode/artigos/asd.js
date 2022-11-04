@@ -61,4 +61,29 @@ export default class Graph {
   
   
   }
+
+return (
+    <svg width={width} height={height} id="gfg">
+      <g transform={`translate(${margin.left},${margin.top})`}>
+        {graph.getNodeByHeight.map((d, i) => {
+          const xScale = scaleBand()
+            .domain(d.map((d) => d.name))
+            .range([0, height]);
+          return (
+            <g transform={`translate(${xScale.bandwidth() / 2})`}>
+              {d.map((node) => (
+                <rect
+                  key={d.name}
+                  x={xScale(node.name)}
+                  y={yScale(i)}
+                  width={50}
+                  height={50}
+                />
+              ))}
+            </g>
+          );
+        })}
+      </g>
+    </svg>
+  );
   
